@@ -9,14 +9,18 @@
 
 #include <math.h>
 
-template < typename T >
-T f( T x ) {
-  return std::cos( x ) - 22.0 * x + 1.0;
+#include "Abstractions.hpp"
+
+namespace Functions {
+
+Real f( Real x ) {
+  return x*x*x - 100.0*x*x -00.0*x + 100.0;
 }
 
-template < typename T >
-T g( T x ) {
-  return ( - x + 1.0 + std::cos( x ) ) / 3.0;
+Real g( Real x ) {
+  return ( 1.0 + std::cos( x ) ) / 3.0;
 }
+
+} // namespace Functions
 
 #endif // _FUNCS_HPP_

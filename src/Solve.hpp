@@ -18,7 +18,7 @@ T Residual( F g, T x0 ) {
 
 /* Fixed point solver templated on type, function, and args for func */
 template <typename T, typename F>
-T FixedPointSolve( F target, T a, T b, T guess ) {
+T FixedPointSolve( F target, T a, T b, T x0 ) {
 
   unsigned int n = 0;
   T error        = 1.0;
