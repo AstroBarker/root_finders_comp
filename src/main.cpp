@@ -3,13 +3,16 @@
 
 #include "Abstractions.hpp"
 #include "Funcs.hpp"
-#include "Solve.hpp"
+#include "Solvers.hpp"
 #include "Timer.hpp"
 
 int main( int argc, char *argv[] ) {
 
   const Real x0 = 1.0;
-  Real result = FixedPointSolve( Functions::f, -2.0, 0.0, 0.8 );
+  std::printf( "# Fixed Point \n" );
+  Real result_fp = FixedPointSolve( Functions::f, -2.0, 0.0, -0.25 );
+  std::printf( "# Newton ~\n" );
+  Real result_n = Newton( Functions::f, Functions::df, -2.0, 0.0, -0.25 );
 
   return 0;
 }

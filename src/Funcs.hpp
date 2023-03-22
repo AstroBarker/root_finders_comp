@@ -14,7 +14,10 @@
 namespace Functions {
 
 Real f( Real x ) {
-  return x*x*x - 100.0*x*x -00.0*x + 100.0;
+  return x*x + 2.0*x - 1.0;
+}
+Real df( Real x ) {
+  return 2.0*x + 2.0;
 }
 
 Real g( Real x ) {
