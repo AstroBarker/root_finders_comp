@@ -13,6 +13,8 @@ int main( int argc, char *argv[] ) {
   Real result_fp = FixedPointSolve( Functions::f, -2.0, 0.0, -0.25 );
   std::printf( "# Newton ~\n" );
   Real result_n = Newton( Functions::f, Functions::df, -2.0, 0.0, -0.25 );
+  std::printf( "# Anderson Accelerated Newton ~\n" );
+  Real result_aan = AANewton( Functions::f, Functions::df, -2.0, 0.0, -0.25 );
 
   return 0;
 }
