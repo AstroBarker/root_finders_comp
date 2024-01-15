@@ -3,7 +3,7 @@ comparison of some root finders in C++
 
 Purpose is to compare some root finders, in C++, on non-linear problems.
 
-Anderson accelerated Newton iteration can outshine standard Newton iteration on "hard" or expensive functions.
+Standard Newton seems to outperform Anderson accelerated Newton in my tests...
 
 ## Root finders implemented
  - Fixed Point

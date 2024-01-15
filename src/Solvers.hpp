@@ -2,12 +2,12 @@
  * File    : Solvers.hpp
  * Author  : Brandon Barker
  * Purpose : Implement Anderson-accelerated fixed point iteration
- * TODO: do the Anderson acceleration...
  **/
 
 #include <cstdio>
 #include <algorithm>
 
+#include "Funcs.hpp"
 #include "SolverOpts.hpp"
 
 /* templated residual function */
@@ -16,14 +16,17 @@ T Residual( F g, T x0 ) {
   return g( x0 ) - x0;
 }
 
-/* Fixed point solver templated on type, function */
+/** 
+ * Fixed point solver templated on type, function 
+ * Assumes input funf target is of type f(x) = 0. Modified in body.
+ **/
 template <typename T, typename F>
 T FixedPointSolve( F target, T a, T b, T x0 ) {
 
   unsigned int n = 0;
   T error        = 1.0;
   while ( n <= Opts::MAX_ITERS && error >= Opts::FPTOL ) {
-    T x1  = target( x0 );
+    T x1  = target(x0) + x0;
     error = std::abs( x1 - x0 );
     x0    = x1;
     n += 1;
