@@ -2,41 +2,49 @@
 #define _TIMER_HPP_
 
 /**
- * File     :  Timer.h
+ * File     :  Timer.hpp
  * --------------
  *
  * Author   : Brandon L. Barker
- *   Based off of https://gist.github.com/mcleary/b0bf4fa88830ff7c882d
- * Purpose  : Simple timer structure
+ *   Inspiration from of https://gist.github.com/mcleary/b0bf4fa88830ff7c882d
+ * Purpose  : Simple timer class
  **/
 
 #include <chrono>
 
-class Timer
-{
+class Timer {
  public:
-   void start( ){
-     m_StartTime = std::chrono::steady_clock::now( );
-     m_bRunning  = true;
-   }
-   void stop( ){
-     m_EndTime  = std::chrono::steady_clock::now( );
-     m_bRunning = false;
-   }
+  void start( ) {
+    m_StartTime = std::chrono::steady_clock::now( );
+    m_bRunning  = true;
+  }
+  void stop( ) {
+    m_EndTime  = std::chrono::steady_clock::now( );
+    m_bRunning = false;
+  }
 
-   double elapsedMilliseconds( ){
-     std::chrono::time_point<std::chrono::steady_clock> endTime;
+  double elapsedNanoseconds( ) {
+    std::chrono::time_point<std::chrono::steady_clock> endTime;
 
-     if ( m_bRunning ) {
-       endTime = std::chrono::steady_clock::now( );
-     } else {
-       endTime = m_EndTime;
-     }
+    // if we haven't stopped the timer, use current time
+    if ( m_bRunning ) {
+      endTime = std::chrono::steady_clock::now( );
+    } else {
+      endTime = m_EndTime;
+    }
 
-     return std::chrono::duration_cast<std::chrono::milliseconds>( endTime - m_StartTime ).count( );
-   }
+    return std::chrono::duration_cast<std::chrono::nanoseconds>( endTime -
+                                                                  m_StartTime )
+        .count( );
+  }
 
-  double elapsedSeconds( ){ return elapsedMilliseconds( ) / 1000.0; }
+
+  /* support microseconds up to hours (days+ requires C++20) */
+  double elapsedMicroseconds( ) { return elapsedNanoseconds( ) / 1.0e3; }
+  double elapsedMilliseconds( ) { return elapsedNanoseconds( ) / 1.0e6; }
+  double elapsedSeconds( ) { return elapsedNanoseconds( ) / 1.0e9; }
+  double elapsedMinutes( ) { return elapsedSeconds( ) / 60.0; }
+  double elapsedHours( ) { return elapsedMinutes( ) / 60.0; }
 
  private:
   std::chrono::time_point<std::chrono::steady_clock> m_StartTime;
