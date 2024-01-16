@@ -30,7 +30,7 @@ Real df2( Real x ) {
          exp( x ) * cos( x ) * cos( x ) + exp( x ) * sin( x ) * cos( x );
 }
 
-Real g( Real x ) { return ( 1.0 + std::cos( x ) ) / 3.0; }
+Real g( Real x ) { return sin(x) + atan(x) - x; }
 
 } // namespace Functions
 
