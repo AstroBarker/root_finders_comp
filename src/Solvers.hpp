@@ -27,6 +27,7 @@ T FixedPoint( F target, T a, T b, T x0 ) {
 
   unsigned int n = 0;
   T error        = 1.0;
+  T ans;
   while ( n <= Opts::MAX_ITERS && error >= Opts::FPTOL ) {
     T x1  = f(x0);
     error = std::fabs( x1 - x0 );
@@ -37,9 +38,10 @@ T FixedPoint( F target, T a, T b, T x0 ) {
     if ( n == Opts::MAX_ITERS ) {
       std::printf( " ! Not Converged ! \n" );
     }
+    ans = x1;
   }
 
-  return x0;
+  return ans;
 }
 
 /**
@@ -60,6 +62,7 @@ T FixedPointAA( F target, T a, T b, T x0 ) {
   T xkm1, xk, xkp1;
   xk   = f( x0 ); // one fixed point step
   xkm1 = x0;
+  T ans;
   while ( n <= Opts::MAX_ITERS && error >= Opts::FPTOL ) {
     /* Anderson acceleration step */
     T alpha = -g( xk ) / ( g( xkm1 ) - g( xk ) );
@@ -76,9 +79,10 @@ T FixedPointAA( F target, T a, T b, T x0 ) {
     if ( n == Opts::MAX_ITERS ) {
       std::printf( " ! Not Converged ! \n" );
     }
+    ans = xk;
   }
 
-  return x0;
+  returnans;
 }
 
 /* Newton iteration templated on type, function */
@@ -113,6 +117,7 @@ T AANewton( F target, F dTarget, T a, T b, T x0 ) {
   T xkm1, xk, xkp1;
   xk   = x0 - h;
   xkm1 = x0;
+  T ans;
   while ( n <= Opts::MAX_ITERS && error >= Opts::FPTOL ) {
     T hp1 = target( xk ) / dTarget( xk );
     T h   = target( xkm1 ) / dTarget( xkm1 );
@@ -131,6 +136,7 @@ T AANewton( F target, F dTarget, T a, T b, T x0 ) {
       std::printf( " ! Not Converged ! \n" );
       printf( " %d %e %e \n", n, xk, error );
     }
+    ans = xk;
   }
-  return x0;
+  return ans;
 }
