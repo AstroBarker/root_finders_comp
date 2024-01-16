@@ -62,7 +62,6 @@ T FixedPointAA( F target, T a, T b, T x0 ) {
   T xkm1, xk, xkp1;
   xk   = f( x0 ); // one fixed point step
   xkm1 = x0;
-  T ans;
   while ( n <= Opts::MAX_ITERS && error >= Opts::FPTOL ) {
     /* Anderson acceleration step */
     T alpha = -g( xk ) / ( g( xkm1 ) - g( xk ) );
@@ -79,10 +78,46 @@ T FixedPointAA( F target, T a, T b, T x0 ) {
     if ( n == Opts::MAX_ITERS ) {
       std::printf( " ! Not Converged ! \n" );
     }
-    ans = xk;
   }
 
-  returnans;
+  return xk;
+}
+
+/**
+ * Anderson accelerated fixed point solver templated on type, function, args...
+ * Assumes target is of type f(x) = x
+ * TODO: update style?
+ **/
+template <typename T, typename F, typename... Args>
+T FixedPointAA( F target, T x0, Args... args ) {
+
+  // puts f(x) = 0 into fixed point form
+  auto f = [&]( const Real x, Args... args ) { return target( x, args... ) + x; };
+
+  unsigned int n = 0;
+  T error        = 1.0;
+  T xkm1, xk, xkp1;
+  xk   = target( x0, args... ); // one fixed point step
+  xkm1 = x0;
+  while ( n <= Opts::MAX_ITERS && error >= Opts::FPTOL ) {
+    /* Anderson acceleration step */
+    T alpha = -Residual( target, xk, args... ) / ( Residual( target, xkm1, args... ) - Residual( target, xk, args... ) );
+
+    T xkp1 = alpha * target( xkm1, args... ) + ( 1.0 - alpha ) * target( xk, args... );
+    error  = std::fabs( xk - xkp1 );
+
+    xkm1 = xk;
+    xk   = xkp1;
+
+    n += 1;
+
+    printf( " %d %e %e \n", n, xk, error );
+    if ( n == Opts::MAX_ITERS ) {
+      std::printf( " ! Not Converged ! \n" );
+    }
+  }
+
+  return xk;
 }
 
 /* Newton iteration templated on type, function */
