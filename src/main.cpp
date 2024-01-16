@@ -14,27 +14,27 @@ int main( int argc, char *argv[] ) {
 
   timer.start( );
   std::printf( "# Fixed Point \n" );
-  Real result_fp = FixedPoint( Functions::f2, -2.0, 0.0, +0.05 );
+  Real result_fp = FixedPoint( Functions::f2, -2.0, 0.0, +0.01 );
   timer.stop( );
   std::printf( "# Fixed point runtime: %e ns \n\n",
                timer.elapsedNanoseconds( ) );
 
   timer.start( );
   std::printf( "# Anderson Accelerated Fixed Point \n" );
-  Real result_fpaa = FixedPointAA( Functions::f2, -2.0, 0.0, +0.05 );
+  Real result_fpaa = FixedPointAA( Functions::f2, -2.0, 0.0, -0.5 );
   timer.stop( );
   std::printf( "# Fixed point runtime: %e ns \n\n",
                timer.elapsedNanoseconds( ) );
 
   timer.start( );
   std::printf( "# Newton ~\n" );
-  Real result_n = Newton( Functions::f2, Functions::df2, -2.0, 0.0, -1.0 );
+  Real result_n = Newton( Functions::f1, Functions::df1, -2.0, 0.0, -0.5 );
   timer.stop( );
   std::printf( "# Newton runtime: %e ns \n\n", timer.elapsedNanoseconds( ) );
 
   timer.start( );
   std::printf( "# Anderson Accelerated Newton ~\n" );
-  Real result_aan = AANewton( Functions::f2, Functions::df2, -2.0, 0.0, -1.0 );
+  Real result_aan = AANewton( Functions::f1, Functions::df1, -2.0, 0.0, -0.5 );
   timer.stop( );
   std::printf( "# Anerson Accerated Newton runtime: %e ns \n\n",
                timer.elapsedNanoseconds( ) );

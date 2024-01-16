@@ -13,16 +13,10 @@
 
 namespace Functions {
 
-Real f( Real x ) {
-  // return x*x + 2.0*x - 1.0;
-  return x * exp( -x );
-}
-Real df( Real x ) {
-  // return 2.0*x + 2.0;
-  return exp( -x ) - x * exp( -x );
-}
+Real f1( Real x ) { return x * exp( -x ); }
+Real df1( Real x ) { return exp( -x ) - x * exp( -x ); }
 
-// multiple roots, including 0, 1.6.., 3.13.., .....
+// multiple roots, including 0, 1.876.., 2.988.., .....
 Real f2( Real x ) { return x * exp( -x ) + sin( x ) * cos( x ); }
 
 Real df2( Real x ) {
@@ -30,7 +24,7 @@ Real df2( Real x ) {
          exp( x ) * cos( x ) * cos( x ) + exp( x ) * sin( x ) * cos( x );
 }
 
-Real g( Real x ) { return sin(x) + atan(x) - x; }
+Real g( Real x ) { return sin( x ) + atan( x ) - x; }
 
 } // namespace Functions
 

@@ -1,7 +1,7 @@
 /**
  * File    : Solvers.hpp
  * Author  : Brandon Barker
- * Purpose : Implement Anderson-accelerated fixed point iteration
+ * Purpose : Implement various root finders
  **/
 
 #include <algorithm>
@@ -10,28 +10,30 @@
 #include "Funcs.hpp"
 #include "SolverOpts.hpp"
 
-/* templated residual function */
-template <typename T, typename F>
-T Residual( F g, T x0 ) {
-  return g( x0 ) - x0;
+/* returns true if bracket contains a root (ya * yb < 0) */
+bool check_bracked( Real ya, Real yb ) {
+  return (ya * yb <= 0.0);
 }
 
 /**
  * Fixed point solver templated on type, function
- * Assumes input funf target is of type f(x) = 0. Modified in body.
+ * Assumes input func target is of type f(x) = 0. Modified in body.
  **/
 template <typename T, typename F>
 T FixedPoint( F target, T a, T b, T x0 ) {
 
+  // puts f(x) = 0 into fixed point form
+  auto f = [&]( const Real x ) { return target( x ) + x; };
+
   unsigned int n = 0;
   T error        = 1.0;
   while ( n <= Opts::MAX_ITERS && error >= Opts::FPTOL ) {
-    T x1  = target( x0 ) + x0;
-    error = std::abs( x1 - x0 );
+    T x1  = f(x0);
+    error = std::fabs( x1 - x0 );
     x0    = x1;
     n += 1;
 
-    printf( " %d %f %f \n", n, x1, error );
+    printf( " %d %e %e \n", n, x1, error );
     if ( n == Opts::MAX_ITERS ) {
       std::printf( " ! Not Converged ! \n" );
     }
@@ -42,7 +44,7 @@ T FixedPoint( F target, T a, T b, T x0 ) {
 
 /**
  * Anderson accelerated fixed point solver templated on type, function
- * Assumes input funf target is of type f(x) = 0. Modified in body.
+ * Assumes input func target is of type f(x) = 0. Modified in body.
  **/
 template <typename T, typename F>
 T FixedPointAA( F target, T a, T b, T x0 ) {
@@ -70,7 +72,7 @@ T FixedPointAA( F target, T a, T b, T x0 ) {
 
     n += 1;
 
-    printf( " %d %f %f \n", n, xk, error );
+    printf( " %d %e %e \n", n, xk, error );
     if ( n == Opts::MAX_ITERS ) {
       std::printf( " ! Not Converged ! \n" );
     }
