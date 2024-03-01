@@ -94,6 +94,9 @@ T FixedPointAA( F target, T x0, Args... args ) {
   // puts f(x) = 0 into fixed point form
   auto f = [&]( const Real x, Args... args ) { return target( x, args... ) + x; };
 
+  // residual function, used in AA algorithm
+  auto g = [&]( const Real x ) { return f( x ) - x; };
+
   unsigned int n = 0;
   T error        = 1.0;
   T xkm1, xk, xkp1;
@@ -101,7 +104,7 @@ T FixedPointAA( F target, T x0, Args... args ) {
   xkm1 = x0;
   while ( n <= Opts::MAX_ITERS && error >= Opts::FPTOL ) {
     /* Anderson acceleration step */
-    T alpha = -Residual( target, xk, args... ) / ( Residual( target, xkm1, args... ) - Residual( target, xk, args... ) );
+    T alpha = -g( target, xk, args... ) / ( g( target, xkm1, args... ) - g( target, xk, args... ) );
 
     T xkp1 = alpha * target( xkm1, args... ) + ( 1.0 - alpha ) * target( xk, args... );
     error  = std::fabs( xk - xkp1 );
