@@ -4,12 +4,12 @@
  * Purpose : Functions to solve
  **/
 
-#ifndef _FUNCS_HPP_
-#define _FUNCS_HPP_
+#ifndef FUNCS_HPP_
+#define FUNCS_HPP_
 
 #include <math.h>
 
-#include "Abstractions.hpp"
+#include "abstractions.hpp"
 
 namespace Functions {
 
@@ -28,4 +28,4 @@ Real g( Real x ) { return sin( x ) + atan( x ) - x; }
 
 } // namespace Functions
 
-#endif // _FUNCS_HPP_
+#endif // FUNCS_HPP_

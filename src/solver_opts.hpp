@@ -1,11 +1,11 @@
-#ifndef _SOLVEROPTS_HPP_
-#define _SOLVEROPTS_HPP_
+#ifndef SOLVER_OPTS_HPP_
+#define SOLVER_OPTS_HPP_
 
 /**
  * This file contains various solver options
  **/
 
-#include "Abstractions.hpp"
+#include "abstractions.hpp"
 
 namespace Opts {
 
@@ -16,4 +16,4 @@ constexpr Real ZBARTOLINV        = 1.0e13;
 
 } // namespace Opts
 
-#endif // _SOLVEROPTS_HPP_
+#endif // SOLVER_OPTS_HPP_

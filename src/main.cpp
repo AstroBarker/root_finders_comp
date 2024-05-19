@@ -1,10 +1,10 @@
 #include <math.h>
 #include <cstdio>
 
-#include "Abstractions.hpp"
-#include "Funcs.hpp"
-#include "Solvers.hpp"
-#include "Timer.hpp"
+#include "abstractions.hpp"
+#include "funcs.hpp"
+#include "solvers.hpp"
+#include "timer.hpp"
 
 int main( int argc, char *argv[] ) {
 

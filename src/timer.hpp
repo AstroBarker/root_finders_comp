@@ -1,8 +1,8 @@
-#ifndef _TIMER_HPP_
-#define _TIMER_HPP_
+#ifndef TIMER_HPP_
+#define TIMER_HPP_
 
 /**
- * File     :  Timer.hpp
+ * File     :  timer.hpp
  * --------------
  *
  * Author   : Brandon L. Barker
@@ -52,4 +52,4 @@ class Timer {
   bool running = false;
 };
 
-#endif // _TIMER_HPP_
+#endif // TIMER_HPP_

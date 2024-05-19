@@ -1,5 +1,8 @@
+#ifndef SOLVERS_HPP_
+#define SOLVERS_HPP_
+
 /**
- * File    : Solvers.hpp
+ * File    : solvers.hpp
  * Author  : Brandon Barker
  * Purpose : Implement various root finders
  **/
@@ -7,8 +10,8 @@
 #include <algorithm>
 #include <cstdio>
 
-#include "Funcs.hpp"
-#include "SolverOpts.hpp"
+#include "funcs.hpp"
+#include "solver_opts.hpp"
 
 /* returns true if bracket contains a root (ya * yb < 0) */
 bool check_bracked( Real ya, Real yb ) {
@@ -178,3 +181,5 @@ T AANewton( F target, F dTarget, T a, T b, T x0 ) {
   }
   return ans;
 }
+
+#endif // SOLVERS_HPP_
