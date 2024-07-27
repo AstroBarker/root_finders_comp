@@ -18,6 +18,7 @@ Real df1( Real x ) { return exp( -x ) - x * exp( -x ); }
 
 // multiple roots, including 0, 1.876.., 2.988.., .....
 Real f2( Real x ) { return x * exp( -x ) + sin( x ) * cos( x ); }
+Real f2_( Real x ) { return x * exp( -x ) + sin( x ) * cos( x ) + x; }
 
 Real df2( Real x ) {
   return -exp( -x ) * ( x + exp( 2.0 * x ) * sin( x ) * sin( x ) - 1.0 ) +
